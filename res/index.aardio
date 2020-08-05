@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>yapi</title>
+    <script>
+    
+    //这句用来导入aardio支持模块
+    const aardio = require('aardio') 
+    
+    </script>
+  </head>
+  <body style="display:flex;flex-direction:column;height:100vh;margin:0;">
+    <div style="margin-bottom:5px;">
+    	<input id="editUrl" type="text" size="60" value="<? =config.electron.url : "http://yapi.demo.qunar.com/login" ?>" ></input> 
+    	<button onclick="loadUrl()">打开</button> <button onclick="sendData()">发送数据</button>  
+    	<button onclick="scrollToTop2()">回到顶部</button>
+    	<button onclick="openDevTools()">devtools</button>
+    </div>
+    
+    <webview id="view"  allowpopups disablewebsecurity
+    	src="<? =config.electron.url : "http://yapi.demo.qunar.com/login" ?>"
+    	useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36"
+    	autosize minwidth="576" minheight="1432"  style="flex:1"></webview>  
+  	
+    
+    <script type="text/javascript">    
+    
+    //获取嵌入的浏览器控件（webview)
+    var webview = document.getElementById("view");
+    
+    aardio.on("executeJavaScript",(js)=>{
+        webview.executeJavaScript(js);
+    })
+    
+    aardio.on("loadUrl",(url)=>{   
+      editUrl.value = url;
+      webview.loadURL(url);
+    })
+
+    loadUrl = function(){
+      webview.loadURL(editUrl.value);
+    } 
+    
+    scrollToTop2 = function(){
+    	webview.executeJavaScript(`document.documentElement.scrollTop=0`);
+    }
+    
+    sendData = function(){
+      webview.executeJavaScript(`
+          var tabs = [...document.querySelectorAll("div.ant-tabs-tab")].filter(
+            (v) => v.innerText=="运行"
+          );
+          tabs[0].click()
+
+          setTimeout(() => {
+            var buttons = [...document.querySelectorAll("button")].filter(
+              (v) => v.innerText=="发 送"
+            );
+            buttons[0].click()
+            
+            setTimeout(() => {
+                document.documentElement.scrollTop = document.documentElement.scrollHeight
+            }, 1000);
+          }, 1000);
+        `)
+    } 
+    
+    openDevTools = function(){
+      webview.openDevTools()
+    } 
+    
+    saveApiData = function(){
+      webview.executeJavaScript(`
+          ...document.querySelector（"button[type=submit]").submit();
+        `)
+    } 
+    
+    //监听浏览器事件
+    webview.addEventListener("did-navigate-in-page",(event)=>{
+        editUrl.value = event.url;
+        aardio.onUrlChange(event.url);
+    })
+    
+    webview.addEventListener("did-finish-load",()=>{
+        webview.executeJavaScript(`document.querySelector(".ant-alert-banner").style.display="none"`); 
+        setTimeout(() => {
+          webview.executeJavaScript(`document.querySelector(".ant-alert-banner").style.display="none"`);  
+        }, 1000); 
+    })
+    </script>
+  </body>
+</html>

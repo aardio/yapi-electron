@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<project ver="10" name="yapi-electron" libEmbed="true" icon="..." ui="win" output="yapi.exe" CompanyName="aardio" FileDescription="yapi-electron" LegalCopyright="Copyright (C) aardio 2019" ProductName="yapi-electron" InternalName="yapi-electron" FileVersion="0.0.0.01" ProductVersion="0.0.0.01" publishDir="/Publish/" dstrip="false">
+	<file name="main.aardio" path="main.aardio" comment="main.aardio"/>
+	<folder name="Js渲染进程" path="res" embed="true" local="false">
+		<file name="favicon.ico" path="res\favicon.ico" comment="res\favicon.ico"/>
+		<file name="index.aardio" path="res\index.aardio" comment="res\index.aardio"/>
+	</folder>
+	<folder name="Js主进程" path="electron.app" comment="目录" embed="false">
+		<file name="main-runtime.js" path="electron.app\main-runtime.js" comment="electron.app\main-runtime.js"/>
+		<file name="package.json" path="electron.app\package.json" comment="electron.app\package.json"/>
+		<folder name="node_modules" path="electron.app\node_modules" comment="electron.app\node_modules" embed="false">
+			<file name="aardio.js" path="electron.app\node_modules\aardio.js" comment="electron.app\node_modules\aardio.js"/>
+		</folder>
+	</folder>
+	<folder name="cross-request" path="cross-request" embed="true" comment="目录" local="false">
+		<file name=".gitignore" path="cross-request\.gitignore" comment="cross-request\.gitignore"/>
+		<file name="background.html" path="cross-request\background.html" comment="cross-request\background.html"/>
+		<file name="background.js" path="cross-request\background.js" comment="cross-request\background.js"/>
+		<file name="icon.png" path="cross-request\icon.png" comment="cross-request\icon.png"/>
+		<file name="index.html" path="cross-request\index.html" comment="cross-request\index.html"/>
+		<file name="index.js" path="cross-request\index.js" comment="cross-request\index.js"/>
+		<file name="jquery-3.1.1.js" path="cross-request\jquery-3.1.1.js" comment="cross-request\jquery-3.1.1.js"/>
+		<file name="manifest.json" path="cross-request\manifest.json" comment="cross-request\manifest.json"/>
+		<file name="popup.html" path="cross-request\popup.html" comment="cross-request\popup.html"/>
+		<file name="popup.js" path="cross-request\popup.js" comment="cross-request\popup.js"/>
+		<file name="README.md" path="cross-request\README.md" comment="cross-request\README.md"/>
+		<file name="response.js" path="cross-request\response.js" comment="cross-request\response.js"/>
+	</folder>
+</project>

@@ -1,0 +1,3 @@
+﻿//config 配置文件
+import fsys.config;
+config = fsys.config( fsys.appdata("/yapi-aardio-sample/") ); 

@@ -1,0 +1,34 @@
+import config;
+import electron.app;
+var app = electron.app();
+
+//在JS中require('aardio')就可以使用下面的external对象
+app.external = {  
+    onUrlChange = function(url){
+       config.electron.url = url; 
+       config.saveAll();
+    }
+}
+
+//electron主进程退出触发此事件
+app.onQuit = function(){
+	win.quitMessage();
+}
+
+app.start({
+    indexUrl = "/res/index.aardio";
+    
+    /*
+    添加要自动加载的chrome扩展,
+    请先将chrome扩展后缀名改为rar并且解压缩放到aardio工程的资源目录下
+    */
+    extensions = { "\cross-request" };//这是一个数组,可以指定内嵌资源目录名
+  
+    browserWindow = {
+        title = "yapi";
+        width = 1398;
+        height = 900;
+    };
+}) 
+
+win.loopMessage();
